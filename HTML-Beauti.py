@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 import os, glob, sys
 
+#TODO remove breaks
+
 def file_replace_text(fname, toreplace, replacement):
     #print("opening " + fname)
     with open(fname, 'r',  encoding='ANSI') as file:
@@ -15,6 +17,7 @@ def main():
     if len(sys.argv) <= 1:
         KBID = str(input("Enter KB number to beautify: "))
     else:
+        print("ARG detected: "+sys.argv[1])
         KBID = sys.argv[1]
     
     dirname = os.path.dirname(__file__)
@@ -39,9 +42,10 @@ def main():
     with open(filepath, encoding='utf-8') as fp:
         soup = BeautifulSoup(fp, "html.parser")
 
-    #saves title name for later
-    title = soup.title.get_text()
-    #print(title)
+    
+    # #saves title name for later
+    # title = soup.title.get_text()
+    # #print(title)
 
     #shameless self-promotion
     creditMe = soup.new_tag('meta', content='Converted to HTML by Vinay Janardhanam')
@@ -51,14 +55,20 @@ def main():
     for s in soup('style'):
         s.extract()
 
+    # for br in soup('br'):
+    #     br.extract()
+
     #remove unnecessary attributes
     for tag in soup():
         for attribute in ['class', 'id', 'name', 'style']:
             del tag[attribute]
     
     #changes image path for KB site
+    print(filename)
+    filename = os.path.splitext(filename)[0]
+    print(filename)
     for image in soup.findAll('img'):
-        image['src'] = image['src'].replace(title, "/images/group87/"+KBID)
+        image['src'] = image['src'].replace(filename, "/images/group87/"+KBID)
 
     #self explanitory :)
     soup.prettify()
@@ -67,7 +77,7 @@ def main():
     soup_string = str(soup)
 
     #removes all <p><br/></p> tags
-    soup_string = soup_string.replace('<p><br/></p>', '<br/>')
+    soup_string = soup_string.replace('<p><br/></p>', '')
 
     #encapsulates <p> tags in <body> with a <div>
     soup_string = soup_string.replace('<body>', '<body>\n<div>')
