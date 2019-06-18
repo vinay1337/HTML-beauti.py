@@ -31,6 +31,10 @@ def main():
 
     filepath = os.path.join(folderpath, filename)
 
+    #if .old version of file already, abort
+    if os.path.exists(filepath+'.old'):
+        sys.exit()
+
     print ("Cleaning " + filename)
 
     #removing smart quotes
