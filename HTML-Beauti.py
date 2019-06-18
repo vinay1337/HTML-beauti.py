@@ -1,8 +1,6 @@
 from bs4 import BeautifulSoup
 import os, glob, sys
 
-#TODO remove breaks
-
 def file_replace_text(fname, toreplace, replacement):
     #print("opening " + fname)
     with open(fname, 'r',  encoding='ANSI') as file:
@@ -29,6 +27,7 @@ def main():
     os.chdir(folderpath)
     for file in glob.glob('*.html'):
         filename = file
+    os.chdir('..')
 
     filepath = os.path.join(folderpath, filename)
 
@@ -42,11 +41,6 @@ def main():
     with open(filepath, encoding='utf-8') as fp:
         soup = BeautifulSoup(fp, "html.parser")
 
-    
-    # #saves title name for later
-    # title = soup.title.get_text()
-    # #print(title)
-
     #shameless self-promotion
     creditMe = soup.new_tag('meta', content='Converted to HTML by Vinay Janardhanam')
     soup.head.append(creditMe)
@@ -55,8 +49,13 @@ def main():
     for s in soup('style'):
         s.extract()
 
-    # for br in soup('br'):
-    #     br.extract()
+    #replace <h1> with <h3>
+    for h1 in soup('h1'):
+        h1.name = 'h3'
+
+    #replace <h2> with <h4>
+    for h2 in soup('h2'):
+        h2.name = 'h4'
 
     #remove unnecessary attributes
     for tag in soup():
