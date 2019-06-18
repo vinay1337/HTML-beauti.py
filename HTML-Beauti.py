@@ -1,8 +1,8 @@
 from bs4 import BeautifulSoup
-import os, glob
+import os, glob, sys
 
 def file_replace_text(fname, toreplace, replacement):
-    print("opening " + fname)
+    #print("opening " + fname)
     with open(fname, 'r',  encoding='Windows-1252') as file:
         filedata = file.read()
     # Replace the text in file
@@ -12,7 +12,11 @@ def file_replace_text(fname, toreplace, replacement):
         file.write(filedata)
 
 def main():
-    KBID = str(input("Enter KB number to beautify: "))
+    if len(sys.argv) <= 1:
+        KBID = str(input("Enter KB number to beautify: "))
+    else:
+        KBID = sys.argv[1]
+    
     dirname = os.path.dirname(__file__)
     # print(dirname)
     folderpath = os.path.join(dirname, KBID)
@@ -37,10 +41,15 @@ def main():
 
     #saves title name for later
     title = soup.title.get_text()
-    print(title)
+    #print(title)
+
+    #shameless self-promotion
+    creditMe = soup.new_tag('meta', content='Converted to HTML by Vinay Janardhanam')
+    soup.head.append(creditMe)
 
     #remove style tag from header
-    soup.find('style').extract()
+    for s in soup('style'):
+        s.extract()
 
     #remove unnecessary attributes
     for tag in soup():
