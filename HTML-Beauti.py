@@ -51,6 +51,9 @@ def main():
     for image in soup.findAll('img'):
         image['src'] = image['src'].replace(title, "/images/group87/"+KBID)
 
+    #self explanitory :)
+    soup.prettify()
+
     #do string processing after here
     soup_string = str(soup)
 
@@ -64,6 +67,10 @@ def main():
     #exports file with .new at end
     with open(filepath+'.new', 'w') as file:
         file.write(str(soup_string))
+
+    #preserves original html file (minus the dumb smart quotes) with a .old extension
+    os.rename(filepath,filepath+'.old')
+    os.rename(filepath+'.new', filepath)
 
 
 if __name__ == "__main__":
