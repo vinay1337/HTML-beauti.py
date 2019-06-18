@@ -3,7 +3,7 @@ import os, glob, sys
 
 def file_replace_text(fname, toreplace, replacement):
     #print("opening " + fname)
-    with open(fname, 'r',  encoding='Windows-1252') as file:
+    with open(fname, 'r',  encoding='ANSI') as file:
         filedata = file.read()
     # Replace the text in file
     filedata = filedata.replace(toreplace, replacement)
