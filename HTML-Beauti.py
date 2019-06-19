@@ -15,7 +15,7 @@ def main():
     if len(sys.argv) <= 1:
         KBID = str(input("Enter KB number to beautify: "))
     else:
-        print("ARG detected: "+sys.argv[1])
+        #print("ARG detected: "+sys.argv[1])
         KBID = sys.argv[1]
     
     dirname = os.path.dirname(__file__)
@@ -33,6 +33,7 @@ def main():
 
     #if .old version of file already, abort
     if os.path.exists(filepath+'.old'):
+        print('File already converted. Aborting.')
         sys.exit()
 
     print ("Cleaning " + filename)
