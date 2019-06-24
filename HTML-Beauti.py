@@ -50,13 +50,6 @@ def main():
 
         print(filename, end=" ")
 
-        #removing smart quotes
-        file_replace_text(filepath, '“', '"')
-        file_replace_text(filepath, '”', '"')
-        file_replace_text(filepath, '’', '')
-        #file_replace_text(filepath, '', '"')
-
-        print(".", end=" ")
 
         #start html cleaning with beautifulsoup
         with open(filepath, encoding='utf-8') as fp:
@@ -67,6 +60,8 @@ def main():
         #shameless self-promotion
         creditMe = soup.new_tag('meta', content='Converted to HTML by Vinay Janardhanam')
         soup.head.append(creditMe)
+
+        print(".", end=" ")
 
         #remove style tag from header
         for s in soup('style'):
@@ -79,6 +74,8 @@ def main():
         #replace <h2> with <h4>
         for h2 in soup('h2'):
             h2.name = 'h4'
+
+        print(".", end=" ")
 
         #remove unnecessary attributes
         for tag in soup():
@@ -94,30 +91,24 @@ def main():
         for image in soup.findAll('img'):
             image['src'] = image['src'].replace(filename, "/images/group87/"+KBID)
 
-        #self explanitory :)
-        soup.prettify()
-
-        #do string processing after here
-        soup_string = str(soup.encode("utf-8"))
-
-        print(".", end=" ")
-
-        #removes all <p><br/></p> tags
-        soup_string = soup_string.replace('<p><br/></p>', '')
-
-        #encapsulates <p> tags in <body> with a <div>
-        soup_string = soup_string.replace('<body>', '<body>\n<div>')
-        soup_string = soup_string.replace('</body>', '</div>\n</body>')
-
         print(".", end=" ")
 
         #exports file with .new at end
-        with open(filepath+'.new', 'w') as file:
-            file.write(str(soup_string))
+        with open(filepath+'.new', 'w', encoding="utf-8") as file:
+            file.write(str(soup))
+
+        print(".", end=" ")
 
         #preserves original html file (minus the dumb smart quotes) with a .old extension
         os.rename(filepath,filepath+'.old')
         os.rename(filepath+'.new', filepath)
+
+        print(".", end=" ")
+
+        file_replace_text(filepath, '<p><br/></p>', '')
+        file_replace_text(filepath, '<body>', '<body>\n<div>')
+        file_replace_text(filepath, '</body>', '</div>\n</body>')
+        file_replace_text(filepath, '', '->')
 
         print('done!')
 
