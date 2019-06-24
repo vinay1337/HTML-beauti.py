@@ -31,6 +31,10 @@ def main():
         folderpath = os.path.join(dirname, KBID)
         # print(folderpath)
 
+        if not (os.path.isdir(folderpath)):
+            print("KBID doesn't exist. Skipping...")
+            continue
+
         # list all .html files in chosen directory (there should only be one)
         os.chdir(folderpath)
         for file in glob.glob('*.html'):
