@@ -108,9 +108,10 @@ def main():
         file_replace_text(filepath, '<p><br/></p>', '')
         file_replace_text(filepath, '<body>', '<body>\n<div>')
         file_replace_text(filepath, '</body>', '</div>\n</body>')
-        file_replace_text(filepath, '', '->')
+        file_replace_text(filepath, '', '=>')
 
-        print('done!')
+        print('done!', end=" ")
+        sys.stdout.flush()
 
 
 if __name__ == "__main__":
