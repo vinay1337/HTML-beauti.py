@@ -93,15 +93,18 @@ def main():
 
         print(".", end=" ")
 
-        #exports file with .new at end
-        with open(filepath+'.new', 'w', encoding="utf-8") as file:
-            file.write(str(soup))
+        #preserves original html file with a .old extension
+        os.rename(filepath, filepath+'.old')
 
         print(".", end=" ")
 
-        #preserves original html file (minus the dumb smart quotes) with a .old extension
-        os.rename(filepath,filepath+'.old')
-        os.rename(filepath+'.new', filepath)
+
+        #exports file with as HTML and TXT
+        with open(filepath, 'w', encoding="utf-8") as file:
+            file.write(str(soup))
+        with open(os.path.join(folderpath, KBID)+'.txt', 'w', encoding="utf-8") as file:
+            file.write(str(soup))
+
 
         print(".", end=" ")
 
