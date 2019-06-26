@@ -98,24 +98,22 @@ def main():
         print(".", end=" ")
 
         #preserves original html file with a .old extension
-        # os.rename(filepath, filepath+'.old')
+        os.rename(filepath, filepath+'.old')
 
-        # print(".", end=" ")
+        print(".", end=" ")
 
+        #exports file with as HTML and TXT
+        with open(filepath, 'w', encoding="utf-8") as file:
+            file.write(str(soup))
+        with open(os.path.join(folderpath, KBID)+'.txt', 'w', encoding="utf-8") as file:
+            file.write(str(soup))
 
-        # #exports file with as HTML and TXT
-        # with open(filepath, 'w', encoding="utf-8") as file:
-        #     file.write(str(soup))
-        # with open(os.path.join(folderpath, KBID)+'.txt', 'w', encoding="utf-8") as file:
-        #     file.write(str(soup))
+        print(".", end=" ")
 
-
-        # print(".", end=" ")
-
-        # file_replace_text(filepath, '<p><br/></p>', '')
-        # file_replace_text(filepath, '<body>', '<body>\n<div>')
-        # file_replace_text(filepath, '</body>', '</div>\n</body>')
-        # file_replace_text(filepath, '', '=>')
+        file_replace_text(filepath, '<p><br/></p>', '')
+        file_replace_text(filepath, '<body>', '<body>\n<div>')
+        file_replace_text(filepath, '</body>', '</div>\n</body>')
+        file_replace_text(filepath, '', '=>')
 
         print('done!', end=" ")
         sys.stdout.flush()
