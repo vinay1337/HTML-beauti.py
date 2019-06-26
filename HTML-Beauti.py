@@ -75,6 +75,10 @@ def main():
         for h2 in soup('h2'):
             h2.name = 'h4'
 
+        #check for img tags with no alt attribute
+        for img in soup('img', alt=False):
+            img['alt'] = 'image'
+
         print(".", end=" ")
 
         #remove unnecessary attributes
@@ -94,24 +98,24 @@ def main():
         print(".", end=" ")
 
         #preserves original html file with a .old extension
-        os.rename(filepath, filepath+'.old')
+        # os.rename(filepath, filepath+'.old')
 
-        print(".", end=" ")
-
-
-        #exports file with as HTML and TXT
-        with open(filepath, 'w', encoding="utf-8") as file:
-            file.write(str(soup))
-        with open(os.path.join(folderpath, KBID)+'.txt', 'w', encoding="utf-8") as file:
-            file.write(str(soup))
+        # print(".", end=" ")
 
 
-        print(".", end=" ")
+        # #exports file with as HTML and TXT
+        # with open(filepath, 'w', encoding="utf-8") as file:
+        #     file.write(str(soup))
+        # with open(os.path.join(folderpath, KBID)+'.txt', 'w', encoding="utf-8") as file:
+        #     file.write(str(soup))
 
-        file_replace_text(filepath, '<p><br/></p>', '')
-        file_replace_text(filepath, '<body>', '<body>\n<div>')
-        file_replace_text(filepath, '</body>', '</div>\n</body>')
-        file_replace_text(filepath, '', '=>')
+
+        # print(".", end=" ")
+
+        # file_replace_text(filepath, '<p><br/></p>', '')
+        # file_replace_text(filepath, '<body>', '<body>\n<div>')
+        # file_replace_text(filepath, '</body>', '</div>\n</body>')
+        # file_replace_text(filepath, '', '=>')
 
         print('done!', end=" ")
         sys.stdout.flush()
