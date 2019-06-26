@@ -102,10 +102,12 @@ def main():
 
         print(".", end=" ")
 
+        filetxt = os.path.join(folderpath, KBID)+'.txt'
+
         #exports file with as HTML and TXT
         with open(filepath, 'w', encoding="utf-8") as file:
             file.write(str(soup))
-        with open(os.path.join(folderpath, KBID)+'.txt', 'w', encoding="utf-8") as file:
+        with open(filetxt, 'w', encoding="utf-8") as file:
             file.write(str(soup))
 
         print(".", end=" ")
@@ -114,6 +116,11 @@ def main():
         file_replace_text(filepath, '<body>', '<body>\n<div>')
         file_replace_text(filepath, '</body>', '</div>\n</body>')
         file_replace_text(filepath, '', '=>')
+
+        file_replace_text(filetxt, '<p><br/></p>', '')
+        file_replace_text(filetxt, '<body>', '<body>\n<div>')
+        file_replace_text(filetxt, '</body>', '</div>\n</body>')
+        file_replace_text(filetxt, '', '=>')
 
         print('done!', end=" ")
         sys.stdout.flush()
