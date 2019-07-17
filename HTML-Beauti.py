@@ -22,7 +22,7 @@ def main():
         kbarg = sys.argv[1:]
 
     #dirname = os.path.dirname(__file__)
-    dirname = '\\\\FS-LS-2\\IT Department\\KB PDF2HTML\\Organized'
+    dirname = '\\\\fs-hsg-1\\IT Department\\KB PDF2HTML\\Organized'
     # print(dirname)
 
     for KBID in kbarg:
