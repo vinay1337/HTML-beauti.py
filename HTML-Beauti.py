@@ -106,9 +106,9 @@ def main():
 
         #exports file with as HTML and TXT
         with open(filepath, 'w', encoding="utf-8") as file:
-            file.write(str(soup))
+            file.write(str(soup.prettify()))
         with open(filetxt, 'w', encoding="utf-8") as file:
-            file.write(str(soup))
+            file.write(str(soup.prettify()))
 
         print(".", end=" ")
 
